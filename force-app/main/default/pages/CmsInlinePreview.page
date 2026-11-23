@@ -1,0 +1,45 @@
+<apex:page
+    controller="CmsInlinePreviewPageController"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"
+    applyHtmlTag="true"
+    cache="true"
+>
+    <html>
+        <head>
+            <title>CMS Inline Image Preview</title>
+            <style>
+                html, body {
+                    margin: 0;
+                    padding: 0;
+                    min-height: 100%;
+                    background: #111;
+                    color: #fff;
+                    font-family: Arial, sans-serif;
+                }
+                .wrap {
+                    min-height: 100vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                img {
+                    max-width: 100%;
+                    max-height: 100vh;
+                    object-fit: contain;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="wrap">
+                <apex:outputPanel rendered="{!hasImage}">
+            <img src="{!imageUrl}" alt="Preview Image" />
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!NOT(hasImage)}">
+                    <p>Image not found.</p>
+                </apex:outputPanel>
+            </div>
+        </body>
+    </html>
+</apex:page>

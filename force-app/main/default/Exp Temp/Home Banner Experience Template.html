@@ -1,0 +1,271 @@
+<style>
+  #mcp-hero-banner {
+    width: 97%;
+    max-width: 1500px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+  }
+
+  #mcp-hero-banner .slideshow__image {
+    width: 100%;
+    display: none;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  #mcp-hero-banner a {
+    display: block;
+    overflow: hidden;
+    border-radius: 15px;
+  }
+
+  .slideshow__image--mobile {
+    border-radius: 15px !important;
+  }
+
+  #mcp-hero-banner .slideshow__image.active {
+    display: block;
+  }
+
+  .slideshow__image--mobile {
+    display: none !important;
+  }
+
+  @media (max-width: 767px) {
+    .slideshow__image--desktop {
+      display: none !important;
+    }
+
+    .slideshow__image--mobile.active {
+      display: block !important;
+    }
+  }
+
+  .mcp-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .mcp-arrow-left {
+    left: 10px;
+  }
+
+  .mcp-arrow-right {
+    right: 10px;
+  }
+
+  .mcp-arrow:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .mcp-slider-dots {
+    text-align: center;
+    margin: 12px auto;
+  }
+
+  .mcp-slider-dots .dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    margin: 0 6px;
+    background: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .mcp-slider-dots .dot.active {
+    background: #333;
+  }
+</style>
+
+<div id="mcp-hero-banner">
+  {{#each [data]}}
+  {{#if @first}}
+  <div class="mcp-arrow mcp-arrow-left">&#10094;</div>
+  <div class="mcp-arrow mcp-arrow-right">&#10095;</div>
+
+  {{#if (subVar 'imageURL1')}}
+  <a href="{{subVar 'ctaURL1'}}" data-action-name="Clicked Desktop Banner 1">
+    <img src="{{subVar 'imageURL1'}}" class="slideshow__image slideshow__image--desktop" alt="Banner 1">
+  </a>
+  {{/if}}
+  {{#if (subVar 'imageURL2')}}
+  <a href="{{subVar 'ctaURL2'}}" data-action-name="Clicked Desktop Banner 2">
+    <img src="{{subVar 'imageURL2'}}" class="slideshow__image slideshow__image--desktop" alt="Banner 2">
+  </a>
+  {{/if}}
+  {{#if (subVar 'imageURL3')}}
+  <a href="{{subVar 'ctaURL3'}}" data-action-name="Clicked Desktop Banner 3">
+    <img src="{{subVar 'imageURL3'}}" class="slideshow__image slideshow__image--desktop" alt="Banner 3">
+  </a>
+  {{/if}}
+  {{#if (subVar 'imageURL4')}}
+  <a href="{{subVar 'ctaURL4'}}" data-action-name="Clicked Desktop Banner 4">
+    <img src="{{subVar 'imageURL4'}}" class="slideshow__image slideshow__image--desktop" alt="Banner 4">
+  </a>
+  {{/if}}
+  {{#if (subVar 'imageURL5')}}
+  <a href="{{subVar 'ctaURL5'}}" data-action-name="Clicked Desktop Banner 5">
+    <img src="{{subVar 'imageURL5'}}" class="slideshow__image slideshow__image--desktop" alt="Banner 5">
+  </a>
+  {{/if}}
+
+  {{#if (subVar 'mobileImageURL1')}}
+  <a href="{{subVar 'mobileCtaURL1'}}" data-action-name="Clicked Mobile Banner 1">
+    <img src="{{subVar 'mobileImageURL1'}}" class="slideshow__image slideshow__image--mobile" alt="Mobile Banner 1">
+  </a>
+  {{/if}}
+  {{#if (subVar 'mobileImageURL2')}}
+  <a href="{{subVar 'mobileCtaURL2'}}" data-action-name="Clicked Mobile Banner 2">
+    <img src="{{subVar 'mobileImageURL2'}}" class="slideshow__image slideshow__image--mobile" alt="Mobile Banner 2">
+  </a>
+  {{/if}}
+  {{#if (subVar 'mobileImageURL3')}}
+  <a href="{{subVar 'mobileCtaURL3'}}" data-action-name="Clicked Mobile Banner 3">
+    <img src="{{subVar 'mobileImageURL3'}}" class="slideshow__image slideshow__image--mobile" alt="Mobile Banner 3">
+  </a>
+  {{/if}}
+  {{#if (subVar 'mobileImageURL4')}}
+  <a href="{{subVar 'mobileCtaURL4'}}" data-action-name="Clicked Mobile Banner 4">
+    <img src="{{subVar 'mobileImageURL4'}}" class="slideshow__image slideshow__image--mobile" alt="Mobile Banner 4">
+  </a>
+  {{/if}}
+  {{#if (subVar 'mobileImageURL5')}}
+  <a href="{{subVar 'mobileCtaURL5'}}" data-action-name="Clicked Mobile Banner 5">
+    <img src="{{subVar 'mobileImageURL5'}}" class="slideshow__image slideshow__image--mobile" alt="Mobile Banner 5">
+  </a>
+  {{/if}}
+
+  <div class="mcp-slider-dots"></div>
+  {{/if}}
+  {{/each}}
+</div>
+
+<script>
+  (function () {
+    var banner = document.getElementById("mcp-hero-banner");
+    if (!banner) return;
+
+    var desktopSlides = Array.prototype.slice.call(
+      banner.querySelectorAll(".slideshow__image--desktop")
+    );
+    var mobileSlides = Array.prototype.slice.call(
+      banner.querySelectorAll(".slideshow__image--mobile")
+    );
+    var totalSlides = Math.max(desktopSlides.length, mobileSlides.length);
+
+    if (!totalSlides) {
+      banner.remove();
+      return;
+    }
+
+    var dotsContainer = banner.querySelector(".mcp-slider-dots");
+    if (dotsContainer) {
+      for (var i = 0; i < totalSlides; i += 1) {
+        var dot = document.createElement("span");
+        dot.className = "dot";
+        dot.setAttribute("data-slide", String(i));
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    var dots = Array.prototype.slice.call(banner.querySelectorAll(".dot"));
+    var leftArrow = banner.querySelector(".mcp-arrow-left");
+    var rightArrow = banner.querySelector(".mcp-arrow-right");
+    var current = 0;
+    var timer = null;
+    var startX = 0;
+
+    function showSlide(index) {
+      desktopSlides.forEach(function (img, idx) {
+        img.classList.toggle("active", idx === index);
+      });
+      mobileSlides.forEach(function (img, idx) {
+        img.classList.toggle("active", idx === index);
+      });
+      dots.forEach(function (dotEl, idx) {
+        dotEl.classList.toggle("active", idx === index);
+      });
+    }
+
+    function next() {
+      current = (current + 1) % totalSlides;
+      showSlide(current);
+    }
+
+    function prev() {
+      current = (current - 1 + totalSlides) % totalSlides;
+      showSlide(current);
+    }
+
+    function restartTimer() {
+      if (timer) window.clearInterval(timer);
+      timer = window.setInterval(next, 6000);
+    }
+
+    showSlide(current);
+    restartTimer();
+
+    if (rightArrow) {
+      rightArrow.addEventListener("click", function () {
+        next();
+        restartTimer();
+      });
+    }
+
+    if (leftArrow) {
+      leftArrow.addEventListener("click", function () {
+        prev();
+        restartTimer();
+      });
+    }
+
+    dots.forEach(function (dotEl) {
+      dotEl.addEventListener("click", function () {
+        current = Number(dotEl.getAttribute("data-slide")) || 0;
+        showSlide(current);
+        restartTimer();
+      });
+    });
+
+    banner.addEventListener("touchstart", function (e) {
+      if (!e.touches || !e.touches.length) return;
+      startX = e.touches[0].clientX;
+    });
+
+    banner.addEventListener("touchend", function (e) {
+      if (!e.changedTouches || !e.changedTouches.length) return;
+      var endX = e.changedTouches[0].clientX;
+      var diff = startX - endX;
+      if (Math.abs(diff) <= 40) return;
+      if (diff > 0) next();
+      else prev();
+      restartTimer();
+    });
+
+    var links = Array.prototype.slice.call(banner.querySelectorAll("a[data-action-name]"));
+    links.forEach(function (link) {
+      link.addEventListener("click", function () {
+        if (!window.SalesforceInteractions || !window.SalesforceInteractions.sendEvent) return;
+        var actionName = link.getAttribute("data-action-name") || "Clicked Banner";
+        window.SalesforceInteractions.sendEvent({
+          interaction: {
+            name: actionName
+          }
+        });
+      });
+    });
+  })();
+</script>

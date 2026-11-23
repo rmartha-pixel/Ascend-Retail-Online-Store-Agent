@@ -1,0 +1,28 @@
+{
+  "required" : [ "orderNumber", "email" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "email" : {
+      "title" : "Order Email",
+      "description" : "The email address the shopper gave for the order.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "orderNumber" : {
+      "title" : "Order Number",
+      "description" : "The order number the shopper gave, for example A-1004.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "previousFailures" : {
+      "title" : "Previous Failures",
+      "description" : "Failed attempts so far in this conversation.",
+      "lightning:type" : "lightning__integerType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

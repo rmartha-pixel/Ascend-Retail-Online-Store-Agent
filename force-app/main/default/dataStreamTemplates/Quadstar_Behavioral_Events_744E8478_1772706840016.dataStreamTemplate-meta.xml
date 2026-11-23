@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStreamTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataSourceBundleDefinition>SPDemo_DS</dataSourceBundleDefinition>
+    <dataSourceObject>Quadstar_Behavioral_Events_744E84781</dataSourceObject>
+    <masterLabel>Quadstar-Behavioral Events 744E8478</masterLabel>
+    <objectCategory>Salesforce_SFDCReferenceModel_0_93.Engagement</objectCategory>
+    <refreshFrequency>NONE</refreshFrequency>
+    <refreshMode>INCREMENTAL</refreshMode>
+    <sourceObjectName>Quadstar_Behavioral_Events_744E8478</sourceObjectName>
+    <streamType>INGEST</streamType>
+    <streamingAppDataConnectorType>WebApp</streamingAppDataConnectorType>
+    <templateVersion>1</templateVersion>
+</DataStreamTemplate>

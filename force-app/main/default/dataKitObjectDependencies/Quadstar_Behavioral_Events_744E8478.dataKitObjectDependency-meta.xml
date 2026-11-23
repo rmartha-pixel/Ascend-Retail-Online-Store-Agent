@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectDependency xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataPackageKitDef>SPDemo</dataPackageKitDef>
+    <developerName>Quadstar_Behavioral_Events_744E8478</developerName>
+    <masterLabel>Quadstar_Behavioral_Events_744E8478__dll</masterLabel>
+    <sourceObject>Quadstar_Behavioral_Events_744E84781</sourceObject>
+    <sourceObjectType>DataSourceObject</sourceObjectType>
+    <targetObject>Quadstar_Behavioral_Events_744E8478</targetObject>
+</DataKitObjectDependency>

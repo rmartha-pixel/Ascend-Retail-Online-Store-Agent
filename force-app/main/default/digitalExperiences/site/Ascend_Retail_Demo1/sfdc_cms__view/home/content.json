@@ -1,0 +1,78 @@
+{
+  "type": "sfdc_cms__view",
+  "title": "Home",
+  "contentBody": {
+    "component": {
+      "children": [
+        {
+          "children": [
+            {
+              "attributes": {
+                "backgroundImageConfig": "",
+                "backgroundImageOverlay": "rgba(0,0,0,0)",
+                "componentSpacerSize": "",
+                "layoutDirectionDesktop": "row",
+                "layoutDirectionMobile": "column",
+                "layoutDirectionTablet": "column",
+                "maxContentWidth": "",
+                "sectionColumnGutterWidth": "",
+                "sectionConfig": "{\"UUID\":\"2a9c444a-ce97-4c9d-aba5-a9d8437fbd23\",\"columns\":[{\"UUID\":\"65274946-02b8-4532-b2df-4318dbc5b6d5\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+                "sectionMinHeight": "",
+                "sectionVerticalAlign": "flex-start"
+              },
+              "children": [
+                {
+                  "children": [
+                    {
+                      "attributes": {},
+                      "definition": "c:ascendBobDemo",
+                      "id": "b0b00001-6a1e-4c55-9f3e-a5c3d0e1a001",
+                      "type": "component"
+                    }
+                  ],
+                  "id": "65274946-02b8-4532-b2df-4318dbc5b6d5",
+                  "name": "col1",
+                  "title": "Column 1",
+                  "type": "region"
+                }
+              ],
+              "definition": "community_layout:section",
+              "id": "2a9c444a-ce97-4c9d-aba5-a9d8437fbd23",
+              "type": "component"
+            }
+          ],
+          "id": "8fae1582-0563-496c-9be9-70f0fe6df1cc",
+          "name": "content",
+          "title": "Content",
+          "type": "region"
+        },
+        {
+          "children": [
+            {
+              "attributes": {
+                "customHeadTags": "",
+                "description": "Watch Revanth walk through the pass and fail returns cases with the Ascend assistant.",
+                "pageTitle": "Ascend Retail Demo \u2014 Revanth",
+                "recordId": "{!recordId}"
+              },
+              "definition": "community_builder:seoAssistant",
+              "id": "7e7ddd7f-a81c-4dee-965d-70dc0364d59f",
+              "type": "component"
+            }
+          ],
+          "id": "2dbf2a67-bdfc-40be-b266-5ac3a0b3dadf",
+          "name": "sfdcHiddenRegion",
+          "title": "sfdcHiddenRegion",
+          "type": "region"
+        }
+      ],
+      "definition": "community_layout:sldsFlexibleLayout",
+      "id": "a090cd13-25de-4bb1-94f8-0a1742d17fe1",
+      "type": "component"
+    },
+    "dataProviders": [],
+    "themeLayoutType": "Inner",
+    "viewType": "home"
+  },
+  "urlName": "home"
+}

@@ -1,0 +1,225 @@
+<style>
+  #pzn-exit-intent-popup {
+    z-index: 10000000;
+  }
+
+  #pzn-exit-intent-popup .evg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  #pzn-exit-intent-popup .evg-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 590px;
+    padding: 30px 25px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  #pzn-exit-intent-popup .evg-btn-dismissal {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #004987;
+  }
+
+  #pzn-exit-intent-popup .evg-main-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #pzn-exit-intent-popup .evg-header {
+    font-size: 5rem;
+    margin-bottom: 10px;
+  }
+
+  #pzn-exit-intent-popup .evg-subheader {
+    font-size: 2rem;
+    max-width: 88%;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+
+  #pzn-exit-intent-popup .evg-btn {
+    width: 80%;
+    margin-bottom: 12px;
+    padding: 14px;
+    font-size: 2rem;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+  }
+
+  #pzn-exit-intent-popup .evg-btn-primary {
+    background: #004987;
+    color: #fff;
+  }
+
+  #pzn-exit-intent-popup .evg-btn-secondary {
+    background: #fff;
+    border: 1px solid #ddd;
+  }
+
+  #pzn-exit-intent-popup .evg-coupon-message {
+    margin-top: 20px;
+    display: none;
+  }
+
+  #pzn-exit-intent-popup .evg-coupon-code {
+    font-size: 2.4rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 12px 24px;
+    border: 2px dashed #007bff;
+    color: #007bff;
+    border-radius: 8px;
+    background: #f5faff;
+  }
+
+  #pzn-exit-intent-popup .evg-copy-btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
+
+  #pzn-exit-intent-popup .evg-countdown {
+    margin-top: 8px;
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 575px) {
+    #pzn-exit-intent-popup .evg-popup {
+      width: 90vw;
+    }
+  }
+</style>
+
+<div id="pzn-exit-intent-popup" role="dialog" aria-modal="true">
+  {{#each [data]}}
+  {{#if @first}}
+  {{#if (subVar 'lightbox')}}
+  <div class="evg-overlay" data-pzn-dismissal></div>
+  {{/if}}
+
+  <div class="evg-popup">
+    <button class="evg-btn-dismissal" data-pzn-dismissal aria-label="Close Popup">
+      &times;
+    </button>
+
+    <div class="evg-main-panel">
+      <h1 class="evg-header">{{{subVar 'header'}}}</h1>
+      <p class="evg-subheader">{{{subVar 'subheader'}}}</p>
+
+      <button class="evg-btn evg-btn-primary" type="button" data-pzn-cta-url="{{subVar 'ctaUrl'}}">
+        {{subVar 'ctaText'}}
+      </button>
+
+      <button class="evg-btn evg-btn-secondary" type="button" data-pzn-dismissal>
+        No thanks I'll pass
+      </button>
+
+      <div class="evg-coupon-message">
+        <p class="evg-coupon-text">
+          Use this coupon code while checkout to apply discount
+        </p>
+        <div class="evg-coupon-code">{{subVar 'couponCode'}}</div>
+        <button class="evg-copy-btn" type="button">Copy Code</button>
+        <p class="evg-countdown">
+          Redirecting in <span data-countdown>5</span> seconds...
+        </p>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  {{/each}}
+</div>
+
+<script>
+  (function () {
+    var popup = document.getElementById("pzn-exit-intent-popup");
+    if (!popup) return;
+
+    var POPUP_COOLDOWN_HOURS = 24;
+    var POPUP_STORAGE_KEY = "pzn_exit_intent_last_shown";
+
+    function hasCooldownExpired() {
+      var lastShown = localStorage.getItem(POPUP_STORAGE_KEY);
+      if (!lastShown) return true;
+      var hoursSince = (Date.now() - Number(lastShown)) / (1000 * 60 * 60);
+      return hoursSince >= POPUP_COOLDOWN_HOURS;
+    }
+
+    function dismissPopup() {
+      popup.remove();
+    }
+
+    if (!hasCooldownExpired()) {
+      dismissPopup();
+      return;
+    }
+
+    localStorage.setItem(POPUP_STORAGE_KEY, Date.now().toString());
+
+    var primaryBtn = popup.querySelector(".evg-btn-primary");
+    var secondaryBtn = popup.querySelector(".evg-btn-secondary");
+    var couponMessage = popup.querySelector(".evg-coupon-message");
+    var couponCodeEl = popup.querySelector(".evg-coupon-code");
+    var copyBtn = popup.querySelector(".evg-copy-btn");
+    var countdownEl = popup.querySelector("[data-countdown]");
+
+    popup.querySelectorAll("[data-pzn-dismissal]").forEach(function (el) {
+      el.addEventListener("click", dismissPopup);
+    });
+
+    if (primaryBtn && secondaryBtn && couponMessage && countdownEl) {
+      primaryBtn.addEventListener("click", function () {
+        var couponCode = couponCodeEl ? couponCodeEl.textContent.trim() : "";
+        var redirectUrl = primaryBtn.getAttribute("data-pzn-cta-url") || "";
+
+        if (couponCode) {
+          localStorage.setItem("pzn_coupon_code", couponCode);
+        }
+
+        primaryBtn.style.display = "none";
+        secondaryBtn.style.display = "none";
+        couponMessage.style.display = "block";
+
+        var seconds = 5;
+        countdownEl.textContent = String(seconds);
+        var timer = setInterval(function () {
+          seconds -= 1;
+          countdownEl.textContent = String(seconds);
+          if (seconds <= 0) {
+            clearInterval(timer);
+            if (redirectUrl) window.location.href = redirectUrl;
+          }
+        }, 1000);
+      });
+    }
+
+    if (copyBtn && couponCodeEl) {
+      copyBtn.addEventListener("click", function () {
+        var couponCode = couponCodeEl.textContent.trim();
+        if (!couponCode) return;
+        navigator.clipboard.writeText(couponCode).then(function () {
+          copyBtn.textContent = "Copied!";
+        });
+      });
+    }
+  })();
+</script>

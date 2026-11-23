@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectTemplate xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <developerName xsi:nil="true"/>
+    <entityPayload>{&quot;personalizationType&quot;:&quot;ManualContent&quot;,&quot;contentObjectName&quot;:null,&quot;contentObjectFieldNames&quot;:[],&quot;name&quot;:&quot;Banner&quot;,&quot;description&quot;:null,&quot;attributes&quot;:[{&quot;defaultValue&quot;:null,&quot;name&quot;:&quot;backgroundImageURL&quot;,&quot;label&quot;:&quot;backgroundImageURL&quot;},{&quot;defaultValue&quot;:null,&quot;name&quot;:&quot;header&quot;,&quot;label&quot;:&quot;header&quot;},{&quot;defaultValue&quot;:null,&quot;name&quot;:&quot;subheader&quot;,&quot;label&quot;:&quot;subheader&quot;}],&quot;label&quot;:&quot;Banner&quot;}</entityPayload>
+    <masterLabel>Banner</masterLabel>
+    <parentDataPackageKitDefinitionName xsi:nil="true"/>
+    <sourceObject>Banner</sourceObject>
+    <sourceObjectType>PersonalizationSchema</sourceObjectType>
+    <templateVersion>1</templateVersion>
+</DataKitObjectTemplate>

@@ -1,0 +1,296 @@
+<style>
+  #evg-exit-intent-popup-email-capture {
+    position: fixed;
+    bottom: 40px;
+    right: 10px;
+    z-index: 10000000;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-overlay {
+    display: none;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-popup {
+    position: fixed;
+    bottom: 16px;
+    right: 20px;
+    padding: 20px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: translateX(0) translateY(0);
+    border-radius: 16px;
+    height: 230px;
+    width: 375px;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-btn-dismissal {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    padding: 0 0.25rem;
+    background-color: transparent;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    border: unset;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-main-panel,
+  #evg-exit-intent-popup-email-capture .evg-confirm-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    margin-top: 48px;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-confirm-header {
+    margin: 0 0 2px;
+    font-size: 16px;
+    text-align: center;
+    padding: 25px 0 0 0;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-confirm-subheader {
+    margin: 0 0 2px;
+    text-align: center;
+    font-size: 10px;
+    padding: 0 0 60px 0;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-opt-out-msg {
+    font-size: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-email {
+    width: 80%;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    color: #59575c;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-h1,
+  #evg-exit-intent-popup-email-capture .evg-h2 {
+    margin: 0 0 0.5rem;
+    padding-left: 5px;
+    color: inherit;
+    font-weight: 100;
+    font-family: inherit;
+    line-height: 1.1;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-h1.evg-display-4 {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-h2 {
+    font-size: 14px;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 3rem;
+    color: #215ca0;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-btn-primary {
+    border-color: #215ca0;
+    color: #fff;
+    background-color: #215ca0;
+    transition: background-color 0.15s, color 0.15s;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-btn-lg {
+    padding: 1rem 2rem;
+    font-size: 12px;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-cta {
+    margin: 0.25rem 0;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-error-msg {
+    color: #ff0000;
+    font-size: 8px;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-style-bg.evg-light-on-dark {
+    background-color: #343a40;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-style-bg.evg-dark-on-light {
+    background-color: #fff;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-style-text.evg-light-on-dark {
+    color: #fff;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-style-text.evg-dark-on-light {
+    color: #343a40;
+  }
+
+  #evg-exit-intent-popup-email-capture .evg-hide {
+    visibility: hidden;
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  @media screen and (max-width: 575px) {
+    #evg-exit-intent-popup-email-capture .evg-popup {
+      width: 44vw;
+    }
+
+    #evg-exit-intent-popup-email-capture .evg-h1.evg-display-4 {
+      font-size: 1.5rem;
+    }
+
+    #evg-exit-intent-popup-email-capture .evg-h1 {
+      font-size: 14px;
+    }
+
+    #evg-exit-intent-popup-email-capture .evg-h2 {
+      font-size: 12px;
+    }
+
+    #evg-exit-intent-popup-email-capture .evg-btn-lg {
+      font-size: 0.9rem;
+    }
+
+    #evg-exit-intent-popup-email-capture .evg-error-msg,
+    #evg-exit-intent-popup-email-capture .evg-opt-out-msg {
+      font-size: 0.75rem;
+    }
+  }
+</style>
+
+<div id="evg-exit-intent-popup-email-capture" role="dialog" aria-modal="true" aria-hidden="false">
+  {{#each [data]}}
+  {{#if @first}}
+  {{#if (subVar 'lightbox')}}
+  <div class="evg-overlay" data-pzn-dismissal></div>
+  {{/if}}
+
+  <div class="evg-popup evg-style-bg" style="background-image:url('{{subVar 'imageUrl'}}')">
+    <div class="evg-main-panel">
+      <h1 class="evg-header evg-h1 evg-display-4 evg-style-text">{{subVar 'header'}}</h1>
+      {{#if (subVar 'subheader')}}
+      <h2 class="evg-subheader evg-h2 evg-style-text">{{subVar 'subheader'}}</h2>
+      {{/if}}
+
+      <form class="evg-form" aria-label="Email Signup" role="form">
+        <input class="evg-email" name="email" type="email" required placeholder="Email" novalidate aria-label="Email" aria-required="true" tabindex="0">
+        <span class="evg-error-msg evg-hide">Enter a valid email address</span>
+        <button class="evg-cta evg-btn evg-btn-primary evg-btn-lg" tabindex="1" type="button" aria-label="Submit">
+          {{subVar 'ctaText'}}
+        </button>
+      </form>
+
+      <span class="evg-opt-out-msg evg-style-text" tabindex="2" data-pzn-dismissal>
+        {{subVar 'optOutText'}}
+      </span>
+    </div>
+
+    <div class="evg-confirm-panel evg-hide">
+      <h1 class="evg-confirm-header evg-h1 evg-style-text">{{subVar 'confirmationHeader'}}</h1>
+      {{#if (subVar 'confirmationSubheader')}}
+      <h2 class="evg-confirm-subheader evg-h2 evg-style-text">{{subVar 'confirmationSubheader'}}</h2>
+      {{/if}}
+    </div>
+
+    <button class="evg-btn-dismissal evg-style-text" data-pzn-dismissal aria-label="Close Popup" tabindex="3">
+      &times;
+    </button>
+  </div>
+  {{/if}}
+  {{/each}}
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById("evg-exit-intent-popup-email-capture");
+    if (!root) return;
+
+    var mainPanel = root.querySelector(".evg-main-panel");
+    var confirmPanel = root.querySelector(".evg-confirm-panel");
+    var ctaButton = root.querySelector(".evg-cta");
+    var emailInput = root.querySelector(".evg-form input[name='email']");
+    var errorMsg = root.querySelector(".evg-error-msg");
+    var overlay = root.querySelector(".evg-overlay");
+    var closeButton = root.querySelector(".evg-btn-dismissal");
+    var dismissTargets = root.querySelectorAll("[data-pzn-dismissal]");
+    var allowDismiss = true;
+
+    function dismissPopup() {
+      if (!allowDismiss) return;
+      root.remove();
+    }
+
+    dismissTargets.forEach(function (el) {
+      el.addEventListener("click", dismissPopup);
+    });
+
+    if (!ctaButton || !emailInput || !mainPanel || !confirmPanel || !errorMsg) return;
+
+    ctaButton.addEventListener("click", function () {
+      var emailAddress = emailInput.value ? emailInput.value.trim() : "";
+      var regex = /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]+)$/;
+
+      if (!emailAddress || !regex.test(emailAddress)) {
+        errorMsg.classList.remove("evg-hide");
+        return;
+      }
+
+      errorMsg.classList.add("evg-hide");
+      mainPanel.classList.add("evg-hide");
+      confirmPanel.classList.remove("evg-hide");
+
+      allowDismiss = false;
+      if (overlay) overlay.removeAttribute("data-pzn-dismissal");
+      if (closeButton) closeButton.removeAttribute("data-pzn-dismissal");
+
+      if (window.SalesforceInteractions && window.SalesforceInteractions.sendEvent) {
+        window.SalesforceInteractions.sendEvent({
+          interaction: {
+            name: "Exit Intent Email Capture"
+          },
+          user: {
+            attributes: {
+              emailAddress: emailAddress
+            }
+          }
+        });
+      }
+    });
+  })();
+</script>

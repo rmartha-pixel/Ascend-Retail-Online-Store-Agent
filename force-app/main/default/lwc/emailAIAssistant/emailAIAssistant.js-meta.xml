@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Published CMS Assets</masterLabel>
+    <description>Browse published CMS images, insert them into the selected block, or copy the published URL.</description>
+    <targets>
+        <target>lightning__CmsEditorExtension</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__CmsEditorExtension">
+            <size width="medium" height="600"></size>
+            <contentTypes>
+                <contentType fullyQualifiedName="sfdc_cms__email"></contentType>
+                <contentType fullyQualifiedName="sfdc_cms__landingPage"></contentType>
+                <contentType fullyQualifiedName="sfdc_cms__emailFragment"></contentType>
+            </contentTypes>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

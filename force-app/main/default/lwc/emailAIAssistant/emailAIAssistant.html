@@ -1,0 +1,76 @@
+<template>
+  <div class="panel">
+    <div class="header">
+      <h2 class="slds-text-heading_small">Published CMS Assets</h2>
+      <p class="hint">CMS images can be inserted into the email. Use Url on an Asset File card to copy a public link that previews in the browser.</p>
+    </div>
+
+    <lightning-input
+      type="search"
+      label="Search assets"
+      variant="label-hidden"
+      placeholder="Search by title"
+      value={searchTerm}
+      onchange={handleSearchChange}
+    >
+    </lightning-input>
+
+    <p class="selection-status slds-m-top_x-small">{selectionLabel}</p>
+    <template lwc:if={statusMessage}>
+      <p class="status-message">{statusMessage}</p>
+    </template>
+
+    <template lwc:if={isLoading}>
+      <div class="slds-align_absolute-center slds-m-top_medium">
+        <lightning-spinner alternative-text="Loading published assets" size="small"></lightning-spinner>
+      </div>
+    </template>
+
+    <template lwc:elseif={hasError}>
+      <p class="error-text">{errorMessage}</p>
+    </template>
+
+    <template lwc:elseif={hasAssets}>
+      <div class="asset-stack">
+        <template for:each={filteredAssets} for:item="asset">
+          <article key={asset.contentKey} class="asset-card">
+            <img class="asset-image" src={asset.url} alt={asset.title} draggable="false" />
+            <div class="asset-title" title={asset.title}>{asset.title}</div>
+            <div class="asset-meta">{asset.channelName}</div>
+            <template lwc:if={asset.workspaceName}>
+              <div class="asset-meta">{asset.workspaceName}</div>
+            </template>
+            <div class="asset-actions">
+              <lightning-button
+                variant="brand"
+                label="Insert"
+                type="button"
+                data-url={asset.url}
+                data-content-key={asset.contentKey}
+                data-title={asset.title}
+                data-alt={asset.altText}
+                data-use-cms-reference={asset.useCmsReference}
+                onclick={handleInsert}
+                disabled={isInsertDisabled}
+              >
+              </lightning-button>
+              <lightning-button
+                variant="neutral"
+                label="Url"
+                type="button"
+                data-preview-url={asset.previewUrl}
+                data-url={asset.url}
+                onclick={handleCopyUrl}
+              >
+              </lightning-button>
+            </div>
+          </article>
+        </template>
+      </div>
+    </template>
+
+    <template lwc:else>
+      <p class="empty-text">No published CMS assets were found. Publish images to a CMS channel, then reopen this extension.</p>
+    </template>
+  </div>
+</template>

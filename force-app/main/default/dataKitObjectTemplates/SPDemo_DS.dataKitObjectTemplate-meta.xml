@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectTemplate xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <developerName xsi:nil="true"/>
+    <entityPayload>{&quot;dataConnectorIngestApiSourceName&quot;:null,&quot;dataConnectorIngestApiDeveloperName&quot;:null,&quot;dataConnectorIngestApiMasterLabel&quot;:null,&quot;externalDataConnectorDeveloperName&quot;:&quot;Quadstar_a4cadcc0_bf9d_4a84_b3eb_6f7132fea8e4&quot;,&quot;externalDataConnectorMasterLabel&quot;:&quot;Quadstar&quot;}</entityPayload>
+    <masterLabel>SPDemo_DS</masterLabel>
+    <parentDataPackageKitDefinitionName xsi:nil="true"/>
+    <sourceObject>SPDemo_DS</sourceObject>
+    <sourceObjectType>StreamingAppAndIngestionConnector</sourceObjectType>
+    <templateVersion>1</templateVersion>
+</DataKitObjectTemplate>

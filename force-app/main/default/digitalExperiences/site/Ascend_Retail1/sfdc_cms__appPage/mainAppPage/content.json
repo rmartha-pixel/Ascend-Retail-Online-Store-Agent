@@ -1,0 +1,12 @@
+{
+  "type": "sfdc_cms__appPage",
+  "title": "main",
+  "contentBody": {
+    "currentThemeId": "Build_Your_Own_LWR",
+    "headMarkup": "<title>Ascend Retail</title>\n\n<!-- branding stylesheets -->\n\r\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/slds/salesforce-lightning-design-system-part1.css?{ versionKey }\"/>\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/slds/salesforce-lightning-design-system-part2.css?{ versionKey }\"/>\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/slds/salesforce-lightning-design-system-part3.css?{ versionKey }\"/>\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/slds/salesforce-lightning-design-system-part4.css?{ versionKey }\"/>\r\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/dxp-site-spacing-styling-hooks.min.css?{ versionKey }\" />\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/dxp-styling-hooks.min.css?{ versionKey }\" />\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/dxp-slds-extensions.min.css?{ versionKey }\" />\n\n\n\n<!-- branding stylesheets-->\n\n<link rel=\"stylesheet\" href=\"{ styles/styles.css }\" />\n<link rel=\"stylesheet\" href=\"{ styles/print.css }\" media=\"print\"/>\n\n<!-- Ascend Retail Returns agent (Enhanced Web Chat) -->\n<script type=\"text/javascript\">\n    function initEmbeddedMessaging() {\n        if (!document.body) {\n            document.addEventListener('DOMContentLoaded', initEmbeddedMessaging);\n            return;\n        }\n        try {\n            embeddedservice_bootstrap.settings.language = 'en_US';\n            embeddedservice_bootstrap.settings.targetElement = document.body;\n            embeddedservice_bootstrap.init(\n                '00DWt00000FT3gD',\n                'Ascend_Retail_Chat',\n                'https://storm-fcf826ff7f9f84.my.site.com/ESWSDOMessagingforWeb1770109130933',\n                { scrt2URL: 'https://storm-fcf826ff7f9f84.my.salesforce-scrt.com' }\n            );\n        } catch (err) {\n            console.error('Error loading Embedded Messaging: ', err);\n        }\n    }\n</script>\n<script type=\"text/javascript\" src=\"https://storm-fcf826ff7f9f84.my.site.com/ESWSDOMessagingforWeb1770109130933/assets/js/bootstrap.min.js\" onload=\"initEmbeddedMessaging()\"></script>\n",
+    "isLockerServiceEnabled": false,
+    "isRelaxedCSPLevel": true,
+    "templateName": "talon-template-byo"
+  },
+  "urlName": "main"
+}

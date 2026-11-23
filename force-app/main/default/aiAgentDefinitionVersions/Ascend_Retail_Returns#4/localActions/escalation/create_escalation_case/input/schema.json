@@ -1,0 +1,35 @@
+{
+  "required" : [ "category", "summary" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "category" : {
+      "title" : "Category",
+      "description" : "Damage, Payment or Returns.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "contactId" : {
+      "title" : "Shopper Id",
+      "description" : "Id of the verified shopper, if verified.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "orderNumber" : {
+      "title" : "Order Number",
+      "description" : "Order number discussed, if any.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "summary" : {
+      "title" : "Summary",
+      "description" : "Hand-off summary for the human team.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

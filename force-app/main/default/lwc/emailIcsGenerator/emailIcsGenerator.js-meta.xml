@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Add to Calendar</masterLabel>
+    <description>Generate a public ICS URL from start and end dates and insert an Add to calendar link into the email.</description>
+    <targets>
+        <target>lightning__CmsEditorExtension</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__CmsEditorExtension">
+            <size width="medium" height="640"></size>
+            <contentTypes>
+                <contentType fullyQualifiedName="sfdc_cms__email"></contentType>
+                <contentType fullyQualifiedName="sfdc_cms__landingPage"></contentType>
+                <contentType fullyQualifiedName="sfdc_cms__emailFragment"></contentType>
+            </contentTypes>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

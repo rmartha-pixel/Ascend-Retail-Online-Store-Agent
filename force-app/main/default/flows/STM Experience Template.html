@@ -1,0 +1,158 @@
+<style>
+  .personalization-comp {
+    border: 1px solid #0a8276;
+    padding: 1.5rem;
+  }
+
+  .personalization-comp .pzn-header,
+  .personalization-comp .pzn-header .pzn-title {
+    align-items: center;
+  }
+
+  .personalization-comp .pzn-badge {
+    background-color: #dff4f3;
+    border-radius: 9999px;
+  }
+
+  .personalization-comp .pzn-content {
+    align-items: center;
+    background-color: #f7f7f7;
+    border: 1px solid #eeeded;
+    border-radius: 1px;
+  }
+
+  .personalization-comp .pzn-content img {
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+
+  .personalization-comp .pzn-content .pzn-btn {
+    background-color: #0a8276;
+    border: none;
+    border-radius: 1px;
+    color: #fff;
+    width: fit-content;
+  }
+
+  .personalization-comp .pzn-content:hover {
+    border-color: #0a8276;
+  }
+
+  .personalization-comp .pzn-content:hover .heading-05 {
+    color: #0a8276;
+  }
+
+  .personalization-comp .pzn-links {
+    display: grid;
+    gap: 8px 16px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 0.75rem;
+  }
+
+  .personalization-comp .pzn-links .icon {
+    font-size: 1rem;
+  }
+
+  .personalization-comp .color-green {
+    color: #0a8276;
+  }
+
+  .personalization-comp .color-orange {
+    color: #e16b25;
+  }
+
+  .personalization-comp .color-gray {
+    color: #575352;
+  }
+
+  .personalization-comp .text-justify {
+    text-align: justify;
+  }
+
+  .personalization-comp a:hover {
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 575px) {
+    .personalization-comp .pzn-content {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .personalization-comp .pzn-links {
+      grid-template-columns: 1fr;
+    }
+
+    .personalization-comp .pzn-header {
+      align-items: start;
+      flex-direction: column;
+    }
+  }
+</style>
+
+<div class="ifx-fixed mb-5" id="pzn-rec">
+  <div class="personalization-comp add-gaps" data-componentsource="pzn-comp">
+    <div class="pzn-header d-flex gap-3">
+      <div class="pzn-title d-flex gap-2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75732 12.2695C6.89312 14.9545 9.04552 17.1069 11.7305 17.2427L12 17.25V18.75C9.10051 18.75 6.75 21.1005 6.75 24H5.25C5.25 21.1005 2.89949 18.75 0 18.75V17.25C2.89949 17.25 5.25 14.8995 5.25 12H6.75L6.75732 12.2695ZM6 15.0908C5.35661 16.3373 4.33726 17.3566 3.09082 18C4.33687 18.6432 5.35658 19.6618 6 20.9077C6.64322 19.6622 7.66219 18.6432 8.90771 18C7.6618 17.3566 6.64319 16.3369 6 15.0908Z" fill="#0A8276" />
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.75 0C15.75 4.41388 19.2163 8.01867 23.5752 8.23975L24 8.25V9.75C19.5861 9.75 15.9813 13.2163 15.7603 17.5752L15.75 18H14.25C14.25 13.4437 10.5563 9.75 6 9.75V8.25C10.5563 8.25 14.25 4.55635 14.25 0H15.75ZM15 3.75439C14.0122 6.11966 12.1197 8.01217 9.75439 9C12.1192 9.98765 14.012 11.8795 15 14.2441C15.9878 11.8799 17.8799 9.9878 20.2441 9C17.8795 8.01203 15.9877 6.11924 15 3.75439Z" fill="#0A8276" />
+        </svg>
+        <span class="w-auto heading-03 color-green">Personalised for you</span>
+      </div>
+      <span class="pzn-badge px-2 py-1 body-04">Based on your activity</span>
+    </div>
+
+    <div class="sf-card">
+      {{#each [data]}}
+      {{#if @first}}
+      <div class="body-underline-03 mt-2">
+        <span>Based on your recent download of </span>
+        <a href="{{subVar 'BaseAssetDamPath__c'}}" target="_blank" class="color-green pzn-doc-link" data-gated="{{subVar 'BaseIsGated__c'}}">{{subVar 'BaseDocumentDisplayName__c'}}</a>
+        <span>, we have a recommendation you might find helpful</span>
+      </div>
+
+      <a href="{{subVar 'RSEPageURL__c'}}" class="pzn-content d-flex gap-4 mt-4 p-3">
+        <img src="{{subVar 'RSE_Page_Image_URL__c'}}" alt="pzn-img" width="120" height="120" />
+        <div class="d-flex flex-column">
+          <span class="eyebrow-02 text-uppercase color-gray">{{subVar 'RSEPageCategory__c'}}</span>
+          <span class="heading-05 mt-1">{{subVar 'RSEPageName__c'}}</span>
+          <span class="text-justify mt-2 color-gray body-underline-03">{{subVar 'RSE_Sub_Heading_EN__c'}}</span>
+        </div>
+      </a>
+
+      <div class="mt-4 heading-06">Additional resources you might find useful:</div>
+      <div class="pzn-links">
+        {{#if (subVar 'ShowSimulationTool__c')}}
+        <a href="{{subVar 'STDesignSupportURL__c'}}" class="d-flex align-items-center gap-2 color-green pzn-resource-link" data-gated="f" data-resource="simulationTool" target="_blank">
+          <span class="w-auto heading-06">Simulation Tool</span>
+          <span class="icon icon-arrow-right pzn-resource-icon"></span>
+        </a>
+        {{/if}}
+
+        {{#if (subVar 'ShowSimulationModel__c')}}
+        <a href="{{subVar 'CrossAssetDamPath__c'}}" class="d-flex align-items-center gap-2 color-green pzn-resource-link" data-gated="{{subVar 'CrossIsGated__c'}}" data-resource="simulationModel" target="_blank">
+          <span class="w-auto heading-06">Simulation Model</span>
+          <span class="icon icon-download pzn-resource-icon"></span>
+        </a>
+        {{/if}}
+
+        {{#if (subVar 'ShowReferenceDesign__c')}}
+        <a href="{{subVar 'CrossAssetDamPath__c'}}" class="d-flex align-items-center gap-2 color-green pzn-resource-link" data-gated="{{subVar 'CrossIsGated__c'}}" data-resource="referenceDesign" target="_blank">
+          <span class="w-auto heading-06">Reference Design</span>
+          <span class="icon icon-download pzn-resource-icon"></span>
+        </a>
+        {{/if}}
+
+        {{#if (subVar 'ShowPCBDesign__c')}}
+        <a href="{{subVar 'CrossAssetDamPath__c'}}" class="d-flex align-items-center gap-2 color-green pzn-resource-link" data-gated="{{subVar 'CrossIsGated__c'}}" data-resource="pcbDesign" target="_blank">
+          <span class="w-auto heading-06">PCB Design</span>
+          <span class="icon icon-download pzn-resource-icon"></span>
+        </a>
+        {{/if}}
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+  </div>
+</div>

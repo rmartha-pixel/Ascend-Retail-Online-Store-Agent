@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessagingChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isEndUserDataCaptured>false</isEndUserDataCaptured>
+    <isEstimatedWaitTimeEnabled>false</isEstimatedWaitTimeEnabled>
+    <isFeedbackEnabled>false</isFeedbackEnabled>
+    <isQueuePositionEnabled>false</isQueuePositionEnabled>
+    <isSynchronousChatEnabled>false</isSynchronousChatEnabled>
+    <isVoiceModeEnabled>false</isVoiceModeEnabled>
+    <masterLabel>Ascend Retail Web Chat</masterLabel>
+    <messagingChannelType>EmbeddedMessaging</messagingChannelType>
+    <sessionHandlerFlow>Ascend_Retail_Route_to_Agent</sessionHandlerFlow>
+    <sessionHandlerQueue>SDO_Service_Messaging</sessionHandlerQueue>
+    <sessionHandlerType>Flow</sessionHandlerType>
+</MessagingChannel>

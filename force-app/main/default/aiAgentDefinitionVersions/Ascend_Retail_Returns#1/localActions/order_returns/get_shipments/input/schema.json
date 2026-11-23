@@ -1,0 +1,21 @@
+{
+  "required" : [ "contactId" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "contactId" : {
+      "title" : "Shopper Id",
+      "description" : "Id of the verified shopper.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    },
+    "orderNumber" : {
+      "title" : "Order Number",
+      "description" : "Order number to look up, for example A-1001. Leave empty to list all of the shopper's shipments.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

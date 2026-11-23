@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSrcDataModelFieldMap xmlns="http://soap.sforce.com/2006/04/metadata">
+    <filterApplied>false</filterApplied>
+    <filterOperationType>Equal</filterOperationType>
+    <masterLabel>SPDemoQuadstar_Behavioral_Events_744E8478categoryWebsiteEngagementEngagement_CategoryVAydMRAvszJwJJB</masterLabel>
+    <sourceField>Quadstar_Behavioral_Events_744E84781.category__c</sourceField>
+    <targetField>ssot__WebsiteEngagement__dlm.Engagement_Category__c</targetField>
+    <templateVersion>1</templateVersion>
+    <versionNumber>1.0</versionNumber>
+</DataSrcDataModelFieldMap>

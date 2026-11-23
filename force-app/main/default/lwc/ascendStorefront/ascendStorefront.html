@@ -1,0 +1,138 @@
+<template>
+    <div class="page">
+        <div class="announce">Free returns within 30 days of delivery · Questions? Our assistant is online 24/7</div>
+
+        <header class="nav">
+            <div class="nav-inner">
+                <a class="logo" href="#">ASCEND<span>retail</span></a>
+                <nav class="links" aria-label="Main">
+                    <a href="#">New in</a>
+                    <a href="#">Living</a>
+                    <a href="#">Bedroom</a>
+                    <a href="#">Dining</a>
+                    <a href="#">Decor</a>
+                </nav>
+                <button class="btn btn-ghost" onclick={handleScrollToReturns}>Orders &amp; returns</button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Autumn collection</p>
+                <h1>Made for the way<br />you live at home.</h1>
+                <p class="lede">Natural materials, honest craftsmanship, and help whenever you need it — including returns, answered in under a minute.</p>
+                <div class="actions">
+                    <a class="btn btn-primary" href="#">Shop the collection</a>
+                    <button class="btn btn-light" onclick={handleOpenAssistant}>Start a return</button>
+                </div>
+                <div class="trust">
+                    <span>★ 4.8 from 12,400 reviews</span>
+                    <span>Carbon-neutral delivery</span>
+                </div>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <div class="art-sofa"></div>
+                <div class="art-lamp"></div>
+                <div class="art-plant"></div>
+                <div class="art-rug"></div>
+            </div>
+        </section>
+
+        <section class="returns" data-id="returns">
+            <div class="returns-head">
+                <div>
+                    <p class="eyebrow eyebrow-dark">Orders &amp; returns</p>
+                    <h2>Returns, handled in one conversation.</h2>
+                    <p class="sub">Our Agentforce returns assistant checks your shipments, explains what can go back and why, and files the request for you.</p>
+                </div>
+                <button class="btn btn-primary btn-lg" onclick={handleOpenAssistant}>
+                    <span class="dot"></span> Chat with our assistant
+                </button>
+            </div>
+            <template lwc:if={chatHint}>
+                <div class="hint" role="status">
+                    <span>The assistant is in the chat bubble at the bottom right of this page.</span>
+                    <button class="hint-close" onclick={handleDismissHint} aria-label="Dismiss">×</button>
+                </div>
+            </template>
+            <ol class="steps">
+                <template for:each={steps} for:item="step">
+                    <li key={step.id} class="step">
+                        <span class="step-num">{step.number}</span>
+                        <h3>{step.title}</h3>
+                        <p>{step.body}</p>
+                    </li>
+                </template>
+            </ol>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <h2>Shop by room</h2>
+                <a href="#" class="more">View all</a>
+            </div>
+            <div class="tiles">
+                <template for:each={categories} for:item="cat">
+                    <a key={cat.id} href="#" class={cat.tile}>
+                        <span class="tile-name">{cat.name}</span>
+                        <span class="tile-count">{cat.count}</span>
+                    </a>
+                </template>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <h2>Customer favourites</h2>
+                <a href="#" class="more">Shop bestsellers</a>
+            </div>
+            <div class="products">
+                <template for:each={products} for:item="p">
+                    <article key={p.id} class="product">
+                        <div class={p.swatch}>
+                            <span class={p.badgeClass}>{p.badge}</span>
+                        </div>
+                        <div class="product-body">
+                            <h3>{p.name}</h3>
+                            <p>{p.detail}</p>
+                            <span class="price">{p.price}</span>
+                        </div>
+                    </article>
+                </template>
+            </div>
+        </section>
+
+        <section class="policy">
+            <template for:each={policies} for:item="pol">
+                <div key={pol.id} class="policy-card">
+                    <h3>{pol.title}</h3>
+                    <p>{pol.body}</p>
+                </div>
+            </template>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-inner">
+                <div>
+                    <a class="logo logo-light" href="#">ASCEND<span>retail</span></a>
+                    <p>Home and lifestyle, thoughtfully made.</p>
+                </div>
+                <div class="footer-cols">
+                    <div>
+                        <h4>Help</h4>
+                        <a href="#">Orders &amp; returns</a>
+                        <a href="#">Delivery</a>
+                        <a href="#">Contact us</a>
+                    </div>
+                    <div>
+                        <h4>Company</h4>
+                        <a href="#">About</a>
+                        <a href="#">Sustainability</a>
+                        <a href="#">Careers</a>
+                    </div>
+                </div>
+            </div>
+            <p class="legal">© {year} Ascend Group. Demo site — all data is fictional.</p>
+        </footer>
+    </div>
+</template>

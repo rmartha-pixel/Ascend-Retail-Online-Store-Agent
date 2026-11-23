@@ -1,0 +1,86 @@
+<template>
+  <div class="panel">
+    <div class="header">
+      <h2 class="slds-text-heading_small">Add to Calendar</h2>
+      <p class="hint">
+        Generate a public ICS link. Recipients click Add to calendar and the event is added to their calendar app.
+        Use the date pickers, or paste start/end values from a field.
+      </p>
+    </div>
+
+    <p class="selection-status">{selectionLabel}</p>
+    <template lwc:if={statusMessage}>
+      <p class="status-message">{statusMessage}</p>
+    </template>
+    <template lwc:if={errorMessage}>
+      <p class="error-text">{errorMessage}</p>
+    </template>
+
+    <lightning-input
+      class="slds-m-top_small"
+      label="Event title"
+      value={subject}
+      onchange={handleSubjectChange}
+    >
+    </lightning-input>
+    <lightning-textarea
+      class="slds-m-top_x-small"
+      label="Description"
+      value={description}
+      onchange={handleDescriptionChange}
+    >
+    </lightning-textarea>
+
+    <p class="section-label">Manual dates</p>
+    <lightning-input
+      type="datetime"
+      label="Start"
+      value={startDateTime}
+      onchange={handleStartChange}
+    >
+    </lightning-input>
+    <lightning-input
+      type="datetime"
+      label="End"
+      value={endDateTime}
+      onchange={handleEndChange}
+    >
+    </lightning-input>
+
+    <p class="section-label">Or paste field values</p>
+    <p class="hint">Use a stored datetime such as 2026-09-22T15:00:00Z. If these are filled, they override the pickers.</p>
+    <lightning-input
+      label="Start field value"
+      value={startFieldValue}
+      onchange={handleStartFieldChange}
+    >
+    </lightning-input>
+    <lightning-input
+      label="End field value"
+      value={endFieldValue}
+      onchange={handleEndFieldChange}
+    >
+    </lightning-input>
+
+    <div class="actions">
+      <lightning-button
+        variant="brand"
+        label="Generate ICS URL"
+        onclick={handleGenerate}
+        disabled={isBusy}
+      >
+      </lightning-button>
+    </div>
+
+    <template lwc:if={icsUrl}>
+      <article class="result-card">
+        <div class="result-label">ICS URL</div>
+        <div class="result-url">{icsUrl}</div>
+        <div class="asset-actions">
+          <lightning-button variant="brand" label="Insert link" onclick={handleInsert}></lightning-button>
+          <lightning-button variant="neutral" label="Copy URL" onclick={handleCopyUrl}></lightning-button>
+        </div>
+      </article>
+    </template>
+  </div>
+</template>

@@ -1,0 +1,78 @@
+{
+  "type": "sfdc_cms__view",
+  "title": "Home",
+  "contentBody": {
+    "component": {
+      "children": [
+        {
+          "children": [
+            {
+              "attributes": {
+                "backgroundImageConfig": "",
+                "backgroundImageOverlay": "rgba(0,0,0,0)",
+                "componentSpacerSize": "",
+                "layoutDirectionDesktop": "row",
+                "layoutDirectionMobile": "column",
+                "layoutDirectionTablet": "column",
+                "maxContentWidth": "",
+                "sectionColumnGutterWidth": "",
+                "sectionConfig": "{\"UUID\":\"8889b1bc-4e31-4388-a96b-b348726f193a\",\"columns\":[{\"UUID\":\"ffa953c7-e373-4123-a354-a1773ac3db4a\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+                "sectionMinHeight": "",
+                "sectionVerticalAlign": "flex-start"
+              },
+              "children": [
+                {
+                  "children": [
+                    {
+                      "attributes": {},
+                      "definition": "c:ascendStorefront",
+                      "id": "5b0f6a62-6a1e-4c55-9f3e-a5c3d0e1a001",
+                      "type": "component"
+                    }
+                  ],
+                  "id": "ffa953c7-e373-4123-a354-a1773ac3db4a",
+                  "name": "col1",
+                  "title": "Column 1",
+                  "type": "region"
+                }
+              ],
+              "definition": "community_layout:section",
+              "id": "8889b1bc-4e31-4388-a96b-b348726f193a",
+              "type": "component"
+            }
+          ],
+          "id": "8cd73523-1c91-4fe6-baa8-8b86ab1ccd4c",
+          "name": "content",
+          "title": "Content",
+          "type": "region"
+        },
+        {
+          "children": [
+            {
+              "attributes": {
+                "customHeadTags": "",
+                "description": "Ascend Retail home and lifestyle store with 24/7 returns help.",
+                "pageTitle": "Ascend Retail \u2014 Home & lifestyle",
+                "recordId": "{!recordId}"
+              },
+              "definition": "community_builder:seoAssistant",
+              "id": "f70226d2-7655-47ec-a337-28279c2f5666",
+              "type": "component"
+            }
+          ],
+          "id": "915ed474-0940-40da-b9be-e1113d2f6353",
+          "name": "sfdcHiddenRegion",
+          "title": "sfdcHiddenRegion",
+          "type": "region"
+        }
+      ],
+      "definition": "community_layout:sldsFlexibleLayout",
+      "id": "75ab6c92-9399-40e8-93c0-3c1cb0fe8548",
+      "type": "component"
+    },
+    "dataProviders": [],
+    "themeLayoutType": "Inner",
+    "viewType": "home"
+  },
+  "urlName": "home"
+}

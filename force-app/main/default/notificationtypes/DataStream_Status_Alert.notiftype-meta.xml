@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomNotificationType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customNotifTypeName>DataStream_Status_Alert</customNotifTypeName>
+    <description>Notification for Data Stream run status changes</description>
+    <desktop>true</desktop>
+    <masterLabel>Data Stream Status Alert</masterLabel>
+    <mobile>true</mobile>
+</CustomNotificationType>

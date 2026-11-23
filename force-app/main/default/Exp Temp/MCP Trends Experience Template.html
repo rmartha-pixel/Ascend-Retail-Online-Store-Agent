@@ -1,0 +1,96 @@
+<style>
+  #mcis-trends.mcis-trends {
+    opacity: 0;
+  }
+
+  .jdgm-widget.jdgm-preview-badge {
+    display: block !important;
+  }
+</style>
+
+<span id="mcis-trends" class="mcis-trends">
+  {{#each [data]}}
+  {{#if @first}}
+  {{{subVar 'visitorsText'}}}
+  {{/if}}
+  {{/each}}
+</span>
+
+<script>
+  (function () {
+    var trendsEl = document.getElementById("mcis-trends");
+    if (!trendsEl) return;
+
+    var settings = {
+      account: "galdermasa.us-4",
+      dataset: "indiashopifyprod",
+      lookbackMins: 24 * 60,
+      minViews: 10,
+      reloadInterval: 30 * 1000,
+      stopLoadingAfter: 10 * 60 * 1000
+    };
+
+    function getVisitorsText() {
+      var text = trendsEl.textContent ? trendsEl.textContent.trim() : "";
+      return text || "visitors currently viewing";
+    }
+
+    function getProductId() {
+      if (!window.SalesforceInteractions || !window.SalesforceInteractions.mcis) return null;
+      try {
+        var page = window.SalesforceInteractions.mcis.getSitemapResult().currentPage || {};
+        var interaction = page.interaction || {};
+        var catalogObject = interaction.catalogObject || {};
+        return catalogObject.id || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function trendsUrl(itemId) {
+      return "https://" + settings.account +
+        ".evergage.com/api/dataset/" + settings.dataset +
+        "/social/smartTrends/Product?itemIds=" + encodeURIComponent(itemId) +
+        "&lookbackMins=" + encodeURIComponent(settings.lookbackMins);
+    }
+
+    function renderViews(visitViews) {
+      var visitorsText = getVisitorsText();
+      if (visitViews >= settings.minViews) {
+        trendsEl.innerHTML = "<b>" + visitViews + " " + visitorsText + "</b>";
+      } else {
+        trendsEl.textContent = "";
+      }
+      trendsEl.style.opacity = "1";
+    }
+
+    function loadTrends() {
+      var productId = getProductId();
+      if (!productId) {
+        trendsEl.style.opacity = "1";
+        return;
+      }
+
+      fetch(trendsUrl(productId))
+        .then(function (resp) { return resp.json(); })
+        .then(function (data) {
+          var productData = data && data[productId] ? data[productId] : null;
+          if (!productData || typeof productData.visitViews !== "number") {
+            trendsEl.textContent = "";
+            trendsEl.style.opacity = "1";
+            return;
+          }
+          renderViews(productData.visitViews);
+        })
+        .catch(function () {
+          trendsEl.style.opacity = "1";
+        });
+    }
+
+    loadTrends();
+    var timerId = window.setInterval(loadTrends, settings.reloadInterval);
+    window.setTimeout(function () {
+      window.clearInterval(timerId);
+    }, settings.stopLoadingAfter);
+  })();
+</script>

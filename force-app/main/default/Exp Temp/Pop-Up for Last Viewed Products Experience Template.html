@@ -1,0 +1,196 @@
+<style>
+  #mcp-product-popup.popup-product-slide {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 65vw;
+    max-width: 400px;
+    height: 100vh;
+    background-color: #fff;
+    border-left: 1px solid #ccc;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 9999;
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+    padding: 20px;
+  }
+
+  #mcp-product-popup.popup-product-slide.open {
+    transform: translateX(0);
+  }
+
+  #mcp-product-popup .popup-close {
+    position: absolute;
+    top: 14px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 3rem;
+    cursor: pointer;
+  }
+
+  #mcp-product-popup h3.product-header {
+    margin: unset;
+    font-size: 20px;
+  }
+
+  #mcp-product-popup span.mcp-discount {
+    font-size: 10px;
+    padding: 4px 8px;
+    width: fit-content;
+    background-color: #004987;
+    color: #fff;
+    border: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border-radius: 4rem;
+    display: inline-block;
+    letter-spacing: 0.1rem;
+    line-height: 1;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  #mcp-product-popup .mcp-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-bottom: 20px;
+  }
+
+  #mcp-product-popup .mcp-product-card {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    position: relative;
+    margin-top: 12px;
+  }
+
+  #mcp-product-popup .mcp-product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  #mcp-product-popup .mcp-product-card p {
+    flex-grow: 1;
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #000;
+    font-size: 16px;
+    text-transform: capitalize;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  #mcp-product-popup .mcp-price {
+    color: rgb(18, 18, 18);
+    font-size: 1.6rem;
+  }
+
+  #mcp-product-popup .mcp-price s {
+    color: #737373;
+  }
+
+  #mcp-product-popup .mcp-button {
+    font-size: 14px;
+    margin-top: 4px;
+    padding: 10px;
+    background-color: #004987;
+    border: none;
+    color: #fff;
+    border-radius: 46px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+  }
+</style>
+
+<div class="popup-product-slide" id="mcp-product-popup" role="dialog" aria-label="Product Recommendation Slide">
+  <button class="popup-close" aria-label="Close popup" data-pzn-dismissal>&times;</button>
+  <section class="manual-product-block" aria-label="Product Block">
+    {{#each [data]}}
+    {{#if @first}}
+    {{#if header}}
+    <h3 class="product-header">{{header}}</h3>
+    {{/if}}
+    {{/each}}
+
+    <div class="mcp-container">
+      {{#each [data]}}
+      <div class="mcp-product-card" data-price="{{attributes.price.value}}">
+        <a href="{{attributes.url.value}}" class="mcp-product-link" data-pzn-item-id="{{id}}">
+          {{#if attributes.discount.value}}
+          <span class="mcp-discount">Save {{attributes.discount.value}}</span>
+          {{/if}}
+          <img src="{{attributes.imageUrl.value}}" alt="{{attributes.name.value}}">
+          <p>{{attributes.name.value}}</p>
+        </a>
+
+        <p class="mcp-price">
+          {{#if attributes.listPrice.value}}<s>Rs {{attributes.listPrice.value}}</s>{{/if}}
+          Rs {{attributes.price.value}}
+        </p>
+        <a href="{{attributes.url.value}}" class="mcp-button">View Product</a>
+      </div>
+      {{/each}}
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var popup = document.getElementById("mcp-product-popup");
+    if (!popup) return;
+
+    var container = popup.querySelector(".mcp-container");
+    if (!container) {
+      popup.remove();
+      return;
+    }
+
+    var cards = Array.prototype.slice.call(container.querySelectorAll(".mcp-product-card"));
+    if (!cards.length) {
+      popup.remove();
+      return;
+    }
+
+    cards.sort(function (a, b) {
+      var priceA = Number(a.getAttribute("data-price")) || 0;
+      var priceB = Number(b.getAttribute("data-price")) || 0;
+      return priceB - priceA;
+    });
+
+    cards.slice(2).forEach(function (card) {
+      card.remove();
+    });
+
+    cards.slice(0, 2).forEach(function (card) {
+      container.appendChild(card);
+    });
+
+    window.setTimeout(function () {
+      popup.classList.add("open");
+    }, 100);
+
+    popup.querySelectorAll("[data-pzn-dismissal]").forEach(function (closeEl) {
+      closeEl.addEventListener("click", function () {
+        popup.classList.remove("open");
+        window.setTimeout(function () {
+          popup.remove();
+        }, 300);
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectDependency xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataPackageKitDef>SPDemo</dataPackageKitDef>
+    <developerName>Quadstar_identity_744E84B9</developerName>
+    <masterLabel>Quadstar_identity_744E84B9__dll</masterLabel>
+    <sourceObject>Quadstar_identity_744E84B91</sourceObject>
+    <sourceObjectType>DataSourceObject</sourceObjectType>
+    <targetObject>Quadstar_identity_744E84B9</targetObject>
+</DataKitObjectDependency>

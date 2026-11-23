@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <description>Record-triggered flow that monitors all Data Cloud data streams. Sends success/failure notifications and detects anomalies: consecutive failures, zero records added, excessive records, and long refresh duration.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>SuccessEmailBody</name>
+        <dataType>String</dataType>
+        <expression>&quot;Data Stream: &quot; &amp; {!$Record.Name}
+&amp; BR() &amp; &quot;Status: SUCCESS&quot;
+&amp; BR() &amp; &quot;Refresh Mode: &quot; &amp; TEXT({!$Record.RefreshMode})
+&amp; BR() &amp; &quot;Last Processed Records: &quot; &amp; TEXT({!$Record.TotalRowsProcessed})
+&amp; BR() &amp; &quot;Last Records Added: &quot; &amp; TEXT({!$Record.LastNumberOfRowsAddedCount})
+&amp; BR() &amp; &quot;Total Records: &quot; &amp; TEXT({!$Record.TotalNumberOfRowsAdded})
+&amp; BR() &amp; &quot;Last Refresh: &quot; &amp; TEXT({!$Record.LastRefreshDate})
+&amp; BR() &amp; BR() &amp; &quot;This is an automated notification from Salesforce Flow.&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>FailureEmailBody</name>
+        <dataType>String</dataType>
+        <expression>&quot;Data Stream: &quot; &amp; {!$Record.Name}
+&amp; BR() &amp; &quot;Status: &quot; &amp; TEXT({!$Record.ImportRunStatus})
+&amp; BR() &amp; &quot;Refresh Mode: &quot; &amp; TEXT({!$Record.RefreshMode})
+&amp; BR() &amp; &quot;Last Refresh: &quot; &amp; TEXT({!$Record.LastRefreshDate})
+&amp; BR() &amp; &quot;Error Code: &quot; &amp; IF(ISBLANK({!$Record.LastDataChangeStatusErrorCode}), &quot;N/A&quot;, {!$Record.LastDataChangeStatusErrorCode})
+&amp; BR() &amp; &quot;External Error: &quot; &amp; IF(ISBLANK({!$Record.ExternalStreamErrorCode}), &quot;N/A&quot;, {!$Record.ExternalStreamErrorCode})
+&amp; BR() &amp; &quot;Last Processed Records: &quot; &amp; TEXT({!$Record.TotalRowsProcessed})
+&amp; BR() &amp; &quot;Total Records: &quot; &amp; TEXT({!$Record.TotalNumberOfRowsAdded})
+&amp; BR() &amp; BR() &amp; &quot;Please check Data Cloud for more details.&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>SuccessNotifBody</name>
+        <dataType>String</dataType>
+        <expression>&quot;Processed &quot; &amp; TEXT({!$Record.TotalRowsProcessed}) &amp; &quot; records, &quot; &amp; TEXT({!$Record.LastNumberOfRowsAddedCount}) &amp; &quot; added. Mode: &quot; &amp; TEXT({!$Record.RefreshMode})</expression>
+    </formulas>
+    <formulas>
+        <name>FailureNotifBody</name>
+        <dataType>String</dataType>
+        <expression>&quot;Status: &quot; &amp; TEXT({!$Record.ImportRunStatus}) &amp; &quot;. Error: &quot; &amp; IF(ISBLANK({!$Record.LastDataChangeStatusErrorCode}), &quot;Unknown&quot;, {!$Record.LastDataChangeStatusErrorCode})</expression>
+    </formulas>
+    <formulas>
+        <name>IsConsecutiveFailure</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+OR(ISPICKVAL({!$Record.ImportRunStatus}, &quot;FAILURE&quot;), ISPICKVAL({!$Record.ImportRunStatus}, &quot;ERROR&quot;)),
+OR(ISPICKVAL({!$Record__Prior.ImportRunStatus}, &quot;FAILURE&quot;), ISPICKVAL({!$Record__Prior.ImportRunStatus}, &quot;ERROR&quot;))
+)</expression>
+    </formulas>
+    <formulas>
+        <name>IsZeroRecordsAdded</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+ISPICKVAL({!$Record.ImportRunStatus}, &quot;SUCCESS&quot;),
+{!$Record.LastNumberOfRowsAddedCount} = 0
+)</expression>
+    </formulas>
+    <formulas>
+        <name>IsExcessiveRecords</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+{!$Record.TotalRowsProcessed} &gt; 2000,
+{!$Record.LastNumberOfRowsAddedCount} &gt; 2000
+)</expression>
+    </formulas>
+    <formulas>
+        <name>IsLongRefreshDuration</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+NOT(ISBLANK({!$Record__Prior.LastRefreshDate})),
+({!$Record.LastRefreshDate} - {!$Record__Prior.LastRefreshDate}) &gt; 0.125
+)</expression>
+    </formulas>
+    <formulas>
+        <name>HasAnyAnomaly</name>
+        <dataType>Boolean</dataType>
+        <expression>OR({!IsConsecutiveFailure}, {!IsZeroRecordsAdded}, {!IsExcessiveRecords}, {!IsLongRefreshDuration})</expression>
+    </formulas>
+    <formulas>
+        <name>AnomalyEmailSubject</name>
+        <dataType>String</dataType>
+        <expression>&quot;ANOMALY ALERT - Data Stream: &quot; &amp; {!$Record.Name} &amp; &quot; - &quot; &amp; TEXT({!$Record.LastRefreshDate})</expression>
+    </formulas>
+    <formulas>
+        <name>AnomalyEmailBody</name>
+        <dataType>String</dataType>
+        <expression>&quot;ANOMALY ALERT - Data Stream Monitoring&quot;
+&amp; BR() &amp; &quot;Data Stream: &quot; &amp; {!$Record.Name}
+&amp; BR() &amp; &quot;Detection Time: &quot; &amp; TEXT({!$Record.LastRefreshDate})
+&amp; BR() &amp; &quot;Status: &quot; &amp; TEXT({!$Record.ImportRunStatus})
+&amp; BR() &amp; BR() &amp; &quot;ANOMALIES DETECTED:&quot;
+&amp; BR() &amp; &quot;----------------------------------------&quot;
+&amp; IF({!IsConsecutiveFailure},
+BR() &amp; BR() &amp; &quot;[CONSECUTIVE FAILURES]&quot;
+&amp; BR() &amp; &quot;Trigger: 2+ consecutive failed refreshes detected. First failure is expected due to 2h update cycle; additional consecutive failures indicate a real problem.&quot;
+&amp; BR() &amp; &quot;Timeframe: &quot; &amp; TEXT({!$Record.LastRefreshDate})
+&amp; BR() &amp; &quot;Error: &quot; &amp; IF(ISBLANK({!$Record.LastDataChangeStatusErrorCode}), &quot;N/A&quot;, {!$Record.LastDataChangeStatusErrorCode}),
+&quot;&quot;)
+&amp; IF({!IsZeroRecordsAdded},
+BR() &amp; BR() &amp; &quot;[ZERO RECORDS ADDED]&quot;
+&amp; BR() &amp; &quot;Trigger: Refresh succeeded but 0 records added. If persistent over 24 refreshes (1 day), ingestion may be stalled.&quot;
+&amp; BR() &amp; &quot;Timeframe: &quot; &amp; TEXT({!$Record.LastRefreshDate})
+&amp; BR() &amp; &quot;Total Records: &quot; &amp; TEXT({!$Record.TotalNumberOfRowsAdded}),
+&quot;&quot;)
+&amp; IF({!IsExcessiveRecords},
+BR() &amp; BR() &amp; &quot;[EXCESSIVE RECORDS (&gt;2000)]&quot;
+&amp; BR() &amp; &quot;Trigger: Abnormal volume in single refresh. Threshold: 2000.&quot;
+&amp; BR() &amp; &quot;Timeframe: &quot; &amp; TEXT({!$Record.LastRefreshDate})
+&amp; BR() &amp; &quot;Processed: &quot; &amp; TEXT({!$Record.TotalRowsProcessed}) &amp; &quot;, Added: &quot; &amp; TEXT({!$Record.LastNumberOfRowsAddedCount}),
+&quot;&quot;)
+&amp; IF({!IsLongRefreshDuration},
+BR() &amp; BR() &amp; &quot;[LONG REFRESH DURATION]&quot;
+&amp; BR() &amp; &quot;Trigger: Gap between refresh completions exceeds 3 hours.&quot;
+&amp; BR() &amp; &quot;Timeframe: Current: &quot; &amp; TEXT({!$Record.LastRefreshDate}) &amp; &quot;, Previous: &quot; &amp; TEXT({!$Record__Prior.LastRefreshDate})
+&amp; BR() &amp; &quot;Duration (hours): &quot; &amp; TEXT(ROUND(({!$Record.LastRefreshDate} - {!$Record__Prior.LastRefreshDate}) * 24, 1)),
+&quot;&quot;)
+&amp; BR() &amp; BR() &amp; &quot;----------------------------------------&quot;
+&amp; BR() &amp; &quot;Please investigate in Data Cloud immediately.&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>SuccessTitle</name>
+        <dataType>String</dataType>
+        <expression>&quot;Data Stream SUCCESS: &quot; &amp; {!$Record.Name}</expression>
+    </formulas>
+    <formulas>
+        <name>FailureTitle</name>
+        <dataType>String</dataType>
+        <expression>&quot;Data Stream FAILED: &quot; &amp; {!$Record.Name}</expression>
+    </formulas>
+    <formulas>
+        <name>AnomalyNotifTitle</name>
+        <dataType>String</dataType>
+        <expression>&quot;ANOMALY ALERT: &quot; &amp; {!$Record.Name}</expression>
+    </formulas>
+    <formulas>
+        <name>AnomalyNotifBody</name>
+        <dataType>String</dataType>
+        <expression>IF({!IsConsecutiveFailure}, &quot;Consecutive Failures; &quot;, &quot;&quot;)
+&amp; IF({!IsZeroRecordsAdded}, &quot;Zero Records; &quot;, &quot;&quot;)
+&amp; IF({!IsExcessiveRecords}, &quot;Excessive Records; &quot;, &quot;&quot;)
+&amp; IF({!IsLongRefreshDuration}, &quot;Long Duration; &quot;, &quot;&quot;)
+&amp; &quot;Check email for details.&quot;</expression>
+    </formulas>
+    <interviewLabel>DataStream Record Triggered Notification {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>DataStream Record Triggered Notification</label>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>182</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SetRecipients</targetReference>
+        </connector>
+        <object>DataStream</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>RecipientIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <assignments>
+        <name>SetRecipients</name>
+        <label>Set Recipients</label>
+        <locationX>182</locationX>
+        <locationY>80</locationY>
+        <assignmentItems>
+            <assignToReference>RecipientIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>005Wt000006KOCPIA4</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>CheckStatus</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>CheckStatus</name>
+        <label>Check Status</label>
+        <locationX>182</locationX>
+        <locationY>158</locationY>
+        <defaultConnector>
+            <targetReference>CheckAnomalies</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Data or Other</defaultConnectorLabel>
+        <rules>
+            <name>IsSuccess</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ImportRunStatus</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>SUCCESS</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SendSuccessNotification</targetReference>
+            </connector>
+            <label>Success</label>
+        </rules>
+        <rules>
+            <name>IsFailure</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ImportRunStatus</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>FAILURE</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.ImportRunStatus</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>ERROR</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SendFailureNotification</targetReference>
+            </connector>
+            <label>Failure or Error</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>CheckAnomalies</name>
+        <label>Check Anomalies</label>
+        <locationX>182</locationX>
+        <locationY>700</locationY>
+        <defaultConnectorLabel>No Anomaly</defaultConnectorLabel>
+        <rules>
+            <name>HasAnomaly</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>HasAnyAnomaly</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SendAnomalyNotification</targetReference>
+            </connector>
+            <label>Anomaly Detected</label>
+        </rules>
+    </decisions>
+    <actionCalls>
+        <name>SendSuccessNotification</name>
+        <label>Send Success Notification</label>
+        <locationX>50</locationX>
+        <locationY>350</locationY>
+        <actionName>customNotificationAction</actionName>
+        <actionType>customNotificationAction</actionType>
+        <connector>
+            <targetReference>SendSuccessEmail</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>customNotifTypeId</name>
+            <value>
+                <stringValue>0MLWt000000IPO9OAO</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recipientIds</name>
+            <value>
+                <elementReference>RecipientIds</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>title</name>
+            <value>
+                <elementReference>SuccessTitle</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>body</name>
+            <value>
+                <elementReference>SuccessNotifBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>targetId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>SendSuccessEmail</name>
+        <label>Send Success Email</label>
+        <locationX>50</locationX>
+        <locationY>518</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>CheckAnomalies</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>rmartha@salesforce.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>SuccessTitle</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>SuccessEmailBody</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>SendFailureNotification</name>
+        <label>Send Failure Notification</label>
+        <locationX>314</locationX>
+        <locationY>350</locationY>
+        <actionName>customNotificationAction</actionName>
+        <actionType>customNotificationAction</actionType>
+        <connector>
+            <targetReference>SendFailureEmail</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>customNotifTypeId</name>
+            <value>
+                <stringValue>0MLWt000000IPO9OAO</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recipientIds</name>
+            <value>
+                <elementReference>RecipientIds</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>title</name>
+            <value>
+                <elementReference>FailureTitle</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>body</name>
+            <value>
+                <elementReference>FailureNotifBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>targetId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>SendFailureEmail</name>
+        <label>Send Failure Email</label>
+        <locationX>314</locationX>
+        <locationY>518</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <connector>
+            <targetReference>CheckAnomalies</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>rmartha@salesforce.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>FailureTitle</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>FailureEmailBody</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>SendAnomalyNotification</name>
+        <label>Send Anomaly Notification</label>
+        <locationX>182</locationX>
+        <locationY>880</locationY>
+        <actionName>customNotificationAction</actionName>
+        <actionType>customNotificationAction</actionType>
+        <connector>
+            <targetReference>SendAnomalyEmail</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>customNotifTypeId</name>
+            <value>
+                <stringValue>0MLWt000000IPO9OAO</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recipientIds</name>
+            <value>
+                <elementReference>RecipientIds</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>title</name>
+            <value>
+                <elementReference>AnomalyNotifTitle</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>body</name>
+            <value>
+                <elementReference>AnomalyNotifBody</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>targetId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>SendAnomalyEmail</name>
+        <label>Send Anomaly Email</label>
+        <locationX>182</locationX>
+        <locationY>1050</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>rmartha@salesforce.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>AnomalyEmailSubject</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <elementReference>AnomalyEmailBody</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+</Flow>

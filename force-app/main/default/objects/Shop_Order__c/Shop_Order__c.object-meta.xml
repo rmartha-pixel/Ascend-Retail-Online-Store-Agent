@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Ascend Retail shipment. One record per shipment; a split order has two records with the same Order Number.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Shop Order</label>
+    <nameField>
+        <displayFormat>SHP-{0000}</displayFormat>
+        <label>Shipment Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Shop Orders</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Order_Number__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Item__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

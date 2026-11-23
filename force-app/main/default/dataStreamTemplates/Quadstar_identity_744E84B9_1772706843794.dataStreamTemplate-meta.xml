@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataStreamTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <dataSourceBundleDefinition>SPDemo_DS</dataSourceBundleDefinition>
+    <dataSourceObject>Quadstar_identity_744E84B91</dataSourceObject>
+    <masterLabel>Quadstar-identity 744E84B9</masterLabel>
+    <objectCategory>Salesforce_SFDCReferenceModel_0_93.Profile</objectCategory>
+    <refreshFrequency>NONE</refreshFrequency>
+    <refreshMode>PARTIAL_UPDATE</refreshMode>
+    <sourceObjectName>Quadstar_identity_744E84B9</sourceObjectName>
+    <streamType>INGEST</streamType>
+    <streamingAppDataConnectorType>WebApp</streamingAppDataConnectorType>
+    <templateVersion>1</templateVersion>
+</DataStreamTemplate>

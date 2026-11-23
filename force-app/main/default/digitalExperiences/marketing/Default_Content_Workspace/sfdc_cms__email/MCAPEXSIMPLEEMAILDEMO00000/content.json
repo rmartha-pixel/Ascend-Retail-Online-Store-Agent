@@ -1,0 +1,147 @@
+{
+  "type" : "sfdc_cms__email",
+  "title" : "Simple Apex Email",
+  "contentBody" : {
+    "backgroundColor" : "#f3f3f3",
+    "lightning:backgroundImage" : {
+      "position" : "center center",
+      "repeat" : "no-repeat",
+      "size" : "cover"
+    },
+    "lightning:brandSource" : {
+      "defaultBrandOption" : "sfdcBrand"
+    },
+    "lightning:colorScheme" : "{!$brand.colorScheme}",
+    "lightning:dataProviders" : [ {
+      "attributes" : {
+        "apexClassName" : "SimpleEmailPersonalization"
+      },
+      "definition" : "sfdc_cms__apexClassDataProvider",
+      "sfdcExpressionKey" : "SimpleOffer"
+    } ],
+    "lightning:expressions" : [ {
+      "attributes" : {
+        "expressionGroups" : [ {
+          "name" : "group0",
+          "resource" : "{!SimpleOffer.firstName}"
+        } ]
+      },
+      "default" : "",
+      "definition" : "sfdc_cms__multiLevelExpression",
+      "label" : "firstName",
+      "sfdcExpressionKey" : "firstName"
+    }, {
+      "attributes" : {
+        "expressionGroups" : [ {
+          "name" : "group0",
+          "resource" : "{!SimpleOffer.vehicleName}"
+        } ]
+      },
+      "default" : "",
+      "definition" : "sfdc_cms__multiLevelExpression",
+      "label" : "vehicleName",
+      "sfdcExpressionKey" : "vehicleName"
+    }, {
+      "attributes" : {
+        "expressionGroups" : [ {
+          "name" : "group0",
+          "resource" : "{!SimpleOffer.pickupLocationName}"
+        } ]
+      },
+      "default" : "",
+      "definition" : "sfdc_cms__multiLevelExpression",
+      "label" : "pickupLocationName",
+      "sfdcExpressionKey" : "pickupLocationName"
+    } ],
+    "lightning:padding" : "{!$brand.spacing.none}",
+    "messagePurpose" : "transactional",
+    "sfdc_cms:attachments" : [ ],
+    "sfdc_cms:block" : {
+      "definition" : "sfdc_cms/rootContentBlock",
+      "id" : "a1b2c3d4-e5f6-4789-a012-b3c4d5e6f789",
+      "type" : "block",
+      "children" : [ {
+        "attributes" : {
+          "lightning:backgroundImage" : {
+            "position" : "center center",
+            "repeat" : "no-repeat",
+            "size" : "cover"
+          },
+          "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+          "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+          "lightning:colorScheme" : "{!$brand.colorScheme}",
+          "lightning:margin" : "{!$brand.spacing.none}",
+          "lightning:padding" : "{!$brand.spacing.xSmall}",
+          "reverseOrderOnMobile" : false,
+          "stackOnMobile" : true
+        },
+        "definition" : "lightning/section",
+        "id" : "b2c3d4e5-f678-4901-b234-c5d6e7f89012",
+        "type" : "block",
+        "children" : [ {
+          "attributes" : {
+            "columnWidth" : 12.0,
+            "lightning:backgroundImage" : {
+              "position" : "center center",
+              "repeat" : "no-repeat",
+              "size" : "cover"
+            },
+            "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+            "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+            "lightning:colorScheme" : "{!$brand.colorScheme}",
+            "lightning:margin" : "{!$brand.spacing.none}",
+            "lightning:padding" : "{!$brand.spacing.xSmall}",
+            "lightning:verticalAlignment" : "top"
+          },
+          "definition" : "lightning/column",
+          "id" : "c3d4e5f6-7890-4a12-b345-d6e7f8901234",
+          "type" : "block",
+          "children" : [ {
+            "attributes" : {
+              "align" : "left",
+              "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+              "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+              "lightning:colorGroup" : {
+                "backgroundColor" : "{!$brand.colorScheme.root}",
+                "borderColor" : "{!$brand.colorScheme.neutral}",
+                "linkColor" : "{!$brand.colorScheme.primaryAccent}",
+                "textColor" : "{!$brand.colorScheme.contrast}"
+              },
+              "lightning:margin" : "{!$brand.spacing.none}",
+              "lightning:padding" : "{!$brand.spacing.small}",
+              "lightning:typography" : "{!$brand.typography.heading.heading2}",
+              "text" : "Hello {!$Expression.firstName},"
+            },
+            "definition" : "lightning/paragraph",
+            "id" : "d4e5f678-9012-4b34-c567-e8f901234567",
+            "type" : "block"
+          }, {
+            "attributes" : {
+              "align" : "left",
+              "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+              "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+              "lightning:colorGroup" : {
+                "backgroundColor" : "{!$brand.colorScheme.root}",
+                "borderColor" : "{!$brand.colorScheme.neutral}",
+                "linkColor" : "{!$brand.colorScheme.primaryAccent}",
+                "textColor" : "{!$brand.colorScheme.contrast}"
+              },
+              "lightning:margin" : "{!$brand.spacing.none}",
+              "lightning:padding" : "{!$brand.spacing.small}",
+              "lightning:typography" : "{!$brand.typography.paragraph.paragraph1}",
+              "text" : "Your vehicle is {!$Expression.vehicleName} at {!$Expression.pickupLocationName}."
+            },
+            "definition" : "lightning/paragraph",
+            "id" : "e5f67890-1234-4c56-d789-f01234567890",
+            "type" : "block"
+          } ]
+        } ]
+      } ]
+    },
+    "sfdc_cms:title" : "Simple Apex Email",
+    "sfdc_cms:urlName" : "simple-apex-email",
+    "subjectLine" : "Your vehicle: {!$Expression.vehicleName}",
+    "sfdc_cms:variants" : [ ]
+  },
+  "urlName" : "simple-apex-email"
+}

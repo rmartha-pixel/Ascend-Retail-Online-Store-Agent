@@ -1,0 +1,295 @@
+{
+  "type" : "sfdc_cms__email",
+  "title" : "Copy of MCA Campaign Email",
+  "contentBody" : {
+    "backgroundColor" : "{!$brand.colorScheme.root}",
+    "lightning:backgroundImage" : {
+      "position" : "center center",
+      "repeat" : "no-repeat",
+      "size" : "cover"
+    },
+    "lightning:brandSource" : {
+      "defaultBrandOption" : "sfdcBrand"
+    },
+    "lightning:dataProviders" : [ {
+      "attributes" : {
+        "dataGraphApiName" : "MCA_Data_Graph",
+        "dataspace" : "default"
+      },
+      "definition" : "sfdc_cms__dataGraphDataProvider",
+      "sfdcExpressionKey" : "$dataGraph"
+    } ],
+    "lightning:expressions" : [ ],
+    "messagePurpose" : "promotional",
+    "preheader" : "Customize this draft with your own content.",
+    "sfdc_cms:attachments" : [ ],
+    "sfdc_cms:block" : {
+      "definition" : "sfdc_cms/rootContentBlock",
+      "id" : "49d8b7ef-77d7-4e62-8de6-5b09bfad16a5",
+      "type" : "block",
+      "children" : [ {
+        "attributes" : {
+          "lightning:backgroundImage" : {
+            "position" : "center center",
+            "repeat" : "no-repeat",
+            "size" : "cover"
+          },
+          "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+          "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+          "lightning:colorScheme" : "{!$brand.colorScheme}",
+          "lightning:margin" : "{!$brand.spacing.none}",
+          "lightning:padding" : "{!$brand.spacing.none}",
+          "stackOnMobile" : true,
+          "reverseOrderOnMobile" : false
+        },
+        "definition" : "lightning/section",
+        "id" : "2c9ee794-62e0-4301-b44a-19aada05da50",
+        "type" : "block",
+        "children" : [ {
+          "attributes" : {
+            "columnWidth" : 12.0,
+            "lightning:backgroundImage" : {
+              "position" : "center center",
+              "repeat" : "no-repeat",
+              "size" : "cover"
+            },
+            "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+            "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+            "lightning:colorScheme" : "{!$brand.colorScheme}",
+            "lightning:margin" : "{!$brand.spacing.none}",
+            "lightning:padding" : "{!$brand.spacing.none}",
+            "lightning:verticalAlignment" : "top"
+          },
+          "definition" : "lightning/column",
+          "id" : "ef4f6a9c-8990-4c9d-bd39-8951daf40fb4",
+          "type" : "block",
+          "children" : [ {
+            "attributes" : {
+              "imageFitConfig" : {
+                "width" : {
+                  "unit" : "px",
+                  "value" : 100.0
+                }
+              },
+              "imageInfo" : {
+                "altText" : "",
+                "source" : {
+                  "mimeType" : "image/png",
+                  "ref" : "DEFAULT_EMAIL_TEMPLATE_LOGO_96d707f867634f7eb04e2c9ee64748ea",
+                  "size" : 9467.0,
+                  "type" : "imageReference"
+                },
+                "url" : "/cms/media/MCC7XJMKDI6BEP3IUCPOVXZ7XODE?fileName=DEFAULT_EMAIL_TEMPLATE_LOGO_96d707f867634f7eb04e2c9ee64748ea&fileHash=e2820e11a0a56a7b963f23eb7b5c4579"
+              },
+              "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+              "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+              "lightning:colorGroup" : {
+                "backgroundColor" : "{!$brand.colorScheme.root}",
+                "borderColor" : "{!$brand.colorScheme.neutral}",
+                "linkColor" : "{!$brand.colorScheme.primaryAccent}",
+                "textColor" : "{!$brand.colorScheme.contrast}"
+              },
+              "lightning:horizontalAlignment" : "center",
+              "lightning:margin" : {
+                "bottom" : {
+                  "unit" : "px",
+                  "value" : 32.0
+                },
+                "left" : {
+                  "unit" : "px",
+                  "value" : 16.0
+                },
+                "right" : {
+                  "unit" : "px",
+                  "value" : 16.0
+                },
+                "top" : {
+                  "unit" : "px",
+                  "value" : 32.0
+                }
+              },
+              "lightning:padding" : "{!$brand.spacing.none}",
+              "lightning:typography" : "{!$brand.typography.paragraph.paragraph1}"
+            },
+            "definition" : "lightning/image",
+            "id" : "30628070-fff8-484a-af34-d45373c11331",
+            "type" : "block"
+          }, {
+            "attributes" : {
+              "imageFitConfig" : {
+                "width" : {
+                  "unit" : "px",
+                  "value" : 200.0
+                }
+              },
+              "imageInfo" : {
+                "altText" : "",
+                "source" : {
+                  "mimeType" : "image/png",
+                  "ref" : "Silver",
+                  "size" : 107430.0,
+                  "type" : "imageReference"
+                },
+                "url" : "/cms/media/MCV3EGT3CA7FGVVKWII33H5D5BDA?fileName=Silver-Membership.png&fileHash=5d5d539f930144cc37bd96c94ecf2b81"
+              },
+              "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+              "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+              "lightning:colorGroup" : {
+                "backgroundColor" : "{!$brand.colorScheme.root}",
+                "borderColor" : "{!$brand.colorScheme.neutral}",
+                "linkColor" : "{!$brand.colorScheme.primaryAccent}",
+                "textColor" : "{!$brand.colorScheme.contrast}"
+              },
+              "lightning:horizontalAlignment" : "center",
+              "lightning:margin" : {
+                "bottom" : {
+                  "unit" : "px",
+                  "value" : 0.0
+                },
+                "left" : {
+                  "unit" : "px",
+                  "value" : 16.0
+                },
+                "right" : {
+                  "unit" : "px",
+                  "value" : 16.0
+                },
+                "top" : {
+                  "unit" : "px",
+                  "value" : 0.0
+                }
+              },
+              "lightning:padding" : "{!$brand.spacing.none}",
+              "lightning:typography" : "{!$brand.typography.paragraph.paragraph1}"
+            },
+            "definition" : "lightning/image",
+            "id" : "ae5ce71e-e003-4e92-bc05-07cb10135710",
+            "type" : "block"
+          }, {
+            "attributes" : {
+              "align" : "center",
+              "level" : 3.0,
+              "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+              "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+              "lightning:colorGroup" : {
+                "backgroundColor" : "{!$brand.colorScheme.root}",
+                "borderColor" : "{!$brand.colorScheme.neutral}",
+                "linkColor" : "{!$brand.colorScheme.primaryAccent}",
+                "textColor" : "{!$brand.colorScheme.contrast}"
+              },
+              "lightning:margin" : "{!$brand.spacing.none}",
+              "lightning:padding" : "{!$brand.spacing.none}",
+              "lightning:typography" : "{!$brand.typography.heading.heading2}",
+              "text" : "Silver Member Benefit"
+            },
+            "definition" : "lightning/heading",
+            "id" : "dace402d-2c90-49e8-83fb-34ff54b29525",
+            "type" : "block"
+          }, {
+            "attributes" : {
+              "align" : "center",
+              "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+              "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+              "lightning:colorGroup" : {
+                "backgroundColor" : "{!$brand.colorScheme.root}",
+                "borderColor" : "{!$brand.colorScheme.neutral}",
+                "linkColor" : "{!$brand.colorScheme.primaryAccent}",
+                "textColor" : "{!$brand.colorScheme.contrast}"
+              },
+              "lightning:margin" : "{!$brand.spacing.none}",
+              "lightning:padding" : {
+                "bottom" : {
+                  "unit" : "px",
+                  "value" : 0.0
+                },
+                "left" : {
+                  "unit" : "px",
+                  "value" : 16.0
+                },
+                "right" : {
+                  "unit" : "px",
+                  "value" : 16.0
+                },
+                "top" : {
+                  "unit" : "px",
+                  "value" : 0.0
+                }
+              },
+              "lightning:typography" : "{!$brand.typography.paragraph.paragraph1}",
+              "text" : "As you are a Silver Member, you are eligible for a WiFi device installation!<br /><br />To claim your benefit, please complete the details on our landing page."
+            },
+            "definition" : "lightning/paragraph",
+            "id" : "f1de1e5f-8c17-473e-af97-f5092bce671c",
+            "type" : "block"
+          }, {
+            "attributes" : {
+              "lightning:borderRadius" : "{!$brand.buttonStyleGroup.primary.lightning:borderRadius}",
+              "lightning:borderWidth" : "{!$brand.buttonStyleGroup.primary.lightning:borderWidth}",
+              "lightning:buttonColorGroup" : "{!$brand.buttonStyleGroup.primary.lightning:buttonColorGroup}",
+              "lightning:horizontalAlignment" : "center",
+              "lightning:margin" : "{!$brand.spacing.none}",
+              "lightning:padding" : "{!$brand.buttonStyleGroup.primary.lightning:padding}",
+              "lightning:typography" : "{!$brand.buttonStyleGroup.primary.lightning:typography}",
+              "sfdc_cms:styleGroup" : "{!$brand.buttonStyleGroup.primary}",
+              "text" : "CLAIM YOUR WIFI DEVICE",
+              "uri" : "https://storm-fcf826ff7f9f84.my.site.com/lp/landing-page/lead-creation-MCPZCYHI7ME5BCLGHPEPOGGPML3Q",
+              "width" : "auto"
+            },
+            "definition" : "lightning/button",
+            "id" : "352570e9-f121-4241-ac99-3ec855d16484",
+            "type" : "block"
+          }, {
+            "attributes" : {
+              "align" : "center",
+              "lightning:borderRadius" : "{!$brand.borderRadius.square}",
+              "lightning:borderWidth" : "{!$brand.borderWeight.none}",
+              "lightning:colorGroup" : {
+                "backgroundColor" : "{!$brand.colorScheme.root}",
+                "borderColor" : "{!$brand.colorScheme.neutral}",
+                "linkColor" : "{!$brand.colorScheme.primaryAccent}",
+                "textColor" : "{!$brand.colorScheme.contrast}"
+              },
+              "lightning:margin" : "{!$brand.spacing.none}",
+              "lightning:padding" : {
+                "bottom" : {
+                  "unit" : "px",
+                  "value" : 54.0
+                },
+                "left" : {
+                  "unit" : "px",
+                  "value" : 16.0
+                },
+                "right" : {
+                  "unit" : "px",
+                  "value" : 16.0
+                },
+                "top" : {
+                  "unit" : "px",
+                  "value" : 54.0
+                }
+              },
+              "lightning:typography" : {
+                "fontFamily" : "{!$brand.fontFamily.arial}",
+                "fontSize" : "{!$brand.fontSize.xSmall}",
+                "fontWeight" : "{!$brand.fontWeight.normal}",
+                "letterSpacing" : "normal",
+                "lineHeight" : 1.5,
+                "textTransform" : "none"
+              },
+              "text" : "{!$organization.Address} | <a target=\"_blank\" href=\"{!$link.PreferenceCenterUrl}\" rel=\"noopener noreferrer noopener noreferrer noopener noreferrer noopener noreferrer noopener noreferrer noopener noreferrer noopener noreferrer\">Preference Manager</a> | <a target=\"_blank\" href=\"{!$link.EmailAddressOptOutUrl}\" rel=\"noopener noreferrer noopener noreferrer noopener noreferrer noopener noreferrer noopener noreferrer noopener noreferrer noopener noreferrer\">Unsubscribe</a><div><br clear=\"none\" /></div><div>© Salesforce, Inc. All rights reserved.</div>"
+            },
+            "definition" : "lightning/paragraph",
+            "id" : "e70c5c17-907e-4faa-845c-aa7304fe1f81",
+            "type" : "block"
+          } ]
+        } ]
+      } ]
+    },
+    "sfdc_cms:operations" : [ ],
+    "sfdc_cms:title" : "Copy of MCA Campaign Email",
+    "sfdc_cms:urlName" : "mca-campaign-email",
+    "sfdc_cms:variants" : [ ],
+    "subjectLine" : "Build an Email!"
+  },
+  "urlName" : "mca-campaign-email"
+}

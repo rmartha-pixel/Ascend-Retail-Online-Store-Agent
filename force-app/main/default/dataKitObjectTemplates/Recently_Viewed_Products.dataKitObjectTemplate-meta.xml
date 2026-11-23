@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectTemplate xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <developerName xsi:nil="true"/>
+    <entityPayload>{&quot;personalizationType&quot;:&quot;Recommendations&quot;,&quot;contentObjectName&quot;:&quot;ssot__GoodsProduct__dlm&quot;,&quot;contentObjectFieldNames&quot;:[&quot;ssot__Id__c&quot;,&quot;URL__c&quot;,&quot;Price__c&quot;,&quot;Image_URL__c&quot;,&quot;ssot__Name__c&quot;],&quot;name&quot;:&quot;Recently_Viewed_Products&quot;,&quot;description&quot;:null,&quot;attributes&quot;:[{&quot;defaultValue&quot;:null,&quot;name&quot;:&quot;Title&quot;,&quot;label&quot;:&quot;Title&quot;}],&quot;label&quot;:&quot;Recently Viewed Products&quot;}</entityPayload>
+    <masterLabel>Recently_Viewed_Products</masterLabel>
+    <parentDataPackageKitDefinitionName xsi:nil="true"/>
+    <sourceObject>Recently_Viewed_Products</sourceObject>
+    <sourceObjectType>PersonalizationSchema</sourceObjectType>
+    <templateVersion>1</templateVersion>
+</DataKitObjectTemplate>

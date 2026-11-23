@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataKitObjectTemplate xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <developerName xsi:nil="true"/>
+    <entityPayload>{&quot;goal&quot;:&quot;None&quot;,&quot;profileDataGraphDeveloperName&quot;:&quot;SPE&quot;,&quot;itemDataGraphDeveloperName&quot;:&quot;Product_DG&quot;,&quot;name&quot;:&quot;Recently_Viewed&quot;,&quot;description&quot;:null,&quot;businessFilters&quot;:{&quot;excludeRules&quot;:null,&quot;type&quot;:&quot;BusinessFiltersRuleGroup&quot;,&quot;includeRules&quot;:{&quot;rules&quot;:[{&quot;predicate&quot;:{&quot;path&quot;:[&quot;UnifiedLinkssotIndividualSpe__dlm&quot;,&quot;ssot__Individual__dlm&quot;,&quot;ssot__ProductBrowseEngagement__dlm&quot;],&quot;fieldName&quot;:&quot;ssot__ProductId__c&quot;,&quot;fieldRuleOperator&quot;:&quot;And&quot;,&quot;fieldRules&quot;:[],&quot;aggregateFunction&quot;:&quot;AtLeastOne&quot;,&quot;type&quot;:&quot;RelatedField&quot;,&quot;operator&quot;:&quot;IsEqualTo&quot;,&quot;dataGraphType&quot;:&quot;Profile&quot;},&quot;fieldName&quot;:&quot;ssot__Id__c&quot;,&quot;type&quot;:&quot;Field&quot;}],&quot;type&quot;:&quot;RuleGroup&quot;,&quot;operator&quot;:&quot;And&quot;}},&quot;label&quot;:&quot;Recently Viewed&quot;,&quot;sortCriteria&quot;:{&quot;metricName&quot;:&quot;product_count__c&quot;,&quot;sortOrder&quot;:&quot;ASC&quot;,&quot;name&quot;:&quot;Goods_Product_CI__cio&quot;,&quot;type&quot;:&quot;SortCriteria&quot;},&quot;objectiveName&quot;:null}</entityPayload>
+    <masterLabel>Recently_Viewed</masterLabel>
+    <parentDataPackageKitDefinitionName xsi:nil="true"/>
+    <sourceObject>Recently_Viewed</sourceObject>
+    <sourceObjectType>PersonalizationRecommender</sourceObjectType>
+    <templateVersion>1</templateVersion>
+</DataKitObjectTemplate>
